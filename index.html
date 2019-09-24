@@ -15,6 +15,7 @@
 */
 body {
     line-height: 1.63;
+    font-size: 1.1em;
 }
 h1, h2, h3 {
     color: #08306B;
@@ -22,9 +23,9 @@ h1, h2, h3 {
 #header {
     background-image: url('imgs/showyourstripes_info.png');
     background-size: cover;
-    background-opacity: 0.5;
     height: 80px;
     text-transform: uppercase;
+    box-shadow: inset 0px 0px 5px rgba(0,0,0,0.5);
 }
 #footer {
     font-size: 1em;
@@ -49,7 +50,7 @@ h1, h2, h3 {
 #subfooter {
     background-color: #58585b;
     color: #aaa;
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+    box-shadow: inset 0px 0px 5px rgba(0,0,0,0.5);
 }
 #subfooter h4, #subfooter a, #subfooter a:hover {
     color: #aaa;
@@ -57,7 +58,7 @@ h1, h2, h3 {
 
 .min_caps {
     text-transform: uppercase;
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 .cca {
     font-size: 1.2em;
@@ -135,7 +136,7 @@ a:hover {
 }
 .oq:before, .cq:before {
     content: "“";
-    font-size: 4.5rem;
+    font-size: 300%;
     width: 1rem;
     position: relative;
     top: 28px;
@@ -185,7 +186,7 @@ a:hover {
                                 These statements can be presented at the beginning of presentations, speeches, and meetings, unrelated directly to the climate crisis.
                             </p>
                             <p>
-                                This acknowledgement of our global crisis will hopefully help us make better collective decisions, that do not exacerbate the problem further, while planning for a likely future rather than one similar to our current one.
+                                This acknowledgement of our global crisis will hopefully help us make better collective decisions, that do not exacerbate the problem further, while planning for a likely future rather than our ephemeral present.
                             </p>
                         </div>
                     </div>
@@ -193,19 +194,21 @@ a:hover {
                     <div class="row mt-5">
                         <div class="col">
                             <h2>Acknowledgement Statements</h2>
-                            <p>Simply copy one of the acknowledgements below into a presentation, read out or present how ever you like. None of these statements are copyrighted or need to sourced or cited. The list is growing.</p>
+                            <p>Simply copy one of the acknowledgements below into a presentation, read out or present however you like. These acknowledgements are examples stating our existing situation, feel free to use them as guides for your own acknowledgement of the climate crisis.<p>
+                            <p>None of these statements are copyrighted or need to be sourced or cited.</p>
                             <p>Click the fullscreen icon next to any acknowledgement to simply display this page, with just the statement visible, at the start of your presentation or meeting.</p>
                         </div>
                     </div>
 
                     <div class="row mt-5">
-                        <div class="col">
+                        <div class="col-12 lavg">
                             <h3>English</h3>
 
                             <div class="cca">
                                 <p>I/we acknowledge that we are in an existential human-induced climate crisis caused by excessive CO<sub>2</sub> emissions from a variety of human activities.</p>
                                 <p>I/we recognize that our day-to-day transportation, energy use, materialistic consumption, meat-rich diets and excessive flying are provoking the climate crisis.</p>
                                 <p>I/we acknowledge that the path to resolving this crisis requires systemic societal and structural change supported by strong political intervention, rather than technological innovation or investment alone.</p>
+                                <p>I/we acknowledge that we have less than a decade to make drastic changes before we reach tipping points that will cause climate change effects beyond our control.</p>
                                 <p class="acksource">— Acknowledgment provided by <a href="https://acknowledge-the-climate-crisis.org">acknowledge-the-climate-crisis.org</a></p>
                             </div>
 
@@ -218,8 +221,16 @@ a:hover {
                             </div>
 
                         </div>
-                    </div>
 
+                        <div class="col-12 lavg">
+                            <h3>Français</h3>
+
+                            <div class="cca">
+                                <p>TBA</p>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -377,6 +388,9 @@ ACC.onload = function() {
     txtbutsm.addEventListener('click', function(e) {
         e.stopPropagation();
         ACC.modtextsize -= ACC.textbump;
+        if(ACC.modtextsize <= 1) {
+            ACC.modtextsize = 1;
+        }
         ackmodaltext.style.fontSize = ACC.modtextsize + "rem"
     }, false);
 
