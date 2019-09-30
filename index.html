@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
 
 <style>
 /* colors:
@@ -14,12 +15,18 @@
    Darker red: #67000D
 */
 body {
-    line-height: 1.63;
-    font-size: 1.1em;
+    color: #444;
     word-wrap: break-word;
+    font-family: "Roboto",Helvetica,sans-serif;
+    font-size: 1.13em;
+    line-height: 1.63em;
 }
 h1, h2, h3 {
     color: #08306B;
+}
+h1, h2 {
+    font-weight: 300;
+    letter-spacing: .02em;
 }
 #header {
     background-image: url('imgs/showyourstripes_info.png');
@@ -33,6 +40,7 @@ h1, h2, h3 {
     background-color: #C6DBEF;
     padding: 3em 0;
     margin: 1em 0 0 0;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
 }
 #footer a {
     overflow-wrap: break-word;
@@ -45,7 +53,7 @@ h1, h2, h3 {
 }
 #footer h4, #subfooter h4 {
     color: #FA6A4A;
-    font-weight: bold;
+    font-weight: 300;
     font-size: 1.19rem;
 }
 #subfooter {
@@ -70,7 +78,7 @@ h1, h2, h3 {
     overflow: hidden;
 }
 .lavg h3 {
-    font-weight: bold;
+    font-weight: 300;
     padding-left: 40px;
 }
 .lavg h3:hover {
@@ -89,13 +97,16 @@ h3:before {
     text-align: center;
     margin-left: 10px;
     margin-top: 5px;
-    font-size: 1.5rem;
+    font-size: 24px;
 }
 .opened > h3:before {
     content: '-';
-    line-height: 20px;
+    line-height: 24px;
 }
 
+#modaltext {
+    line-height: normal;
+}
 .cca p:last-child, #modaltext p:last-child {
     margin-bottom: 0;
 }
@@ -124,7 +135,7 @@ h3:before {
 }
 .acksource {
     font-size: calc(50% + 5px);
-    font-weight: bold;
+    font-weight: 300;
 }
 a {
     color: #67000D;
@@ -176,15 +187,15 @@ a:hover {
     width: 25px;
     height: 25px;
     opacity: 0.3;
-    font-size: 35px;
-    font-weight: bolder;
+    font-size: 25px;
+    font-weight: 700;
     line-height: 25px;
     text-align: center;
 }
 .oq:before, .cq:before {
     content: "“";
-    font-size: 1.8em;
-    font-weight: bolder;
+    font-size: 1.4em;
+    font-weight: 400;
     width: 1rem;
     line-height: 0;
 }
@@ -218,10 +229,27 @@ a:hover {
                             Global temperature 1850-2018 <a href="https://showyourstripes.info/">#ShowYourStripes</a>. Source: Ed Hawkins.
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="row mt-5">
-                        <div class="col">
+        <div class="container">
+            <div class="row mt-5 justify-content-lg-center">
+                <div class="col-12">
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
                             <h1>Acknowledge the Climate Crisis</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-6 col-md-8">
+                    <div class="row mt-3">
+                        <div class="col-12">
                             <p>
                             The reality of the climate crisis is too absent from our everyday life, work and decision making at all levels.
                             Despite increasing appearance in the news, and suggestions to make small changes to help, time is running out.
@@ -239,10 +267,10 @@ a:hover {
                         </div>
                     </div>
 
-                    <div class="row mt-5">
+                    <div class="row mt-4">
                         <div class="col">
-                            <h2>Acknowledgements</h2>
-                            <p>Simply copy one of the acknowledgements below into a presentation, read out or present however you like. These acknowledgements are examples stating our existing situation, feel free to use them as guides for your own acknowledgement of the climate crisis.<p>
+                            <h2>Using Acknowledgements</h2>
+                            <p>Simply copy one of the acknowledgements below into the start of a presentation, read it out or present however you like. These acknowledgements are examples stating our existing situation, feel free to use them as guides for your own acknowledgement of the climate crisis.<p>
                             <p>Click the fullscreen icon next to any acknowledgement to simply display this page, with just the statement visible, at the start of your presentation or meeting.</p>
                         </div>
                     </div>
@@ -252,6 +280,12 @@ a:hover {
         </div>
 
         <div class="container">
+
+            <div class="row mt-5 mb-4">
+                <div class="col-12">
+                    <h2>Acknowledgement statements</h2>
+                </div>
+            </div>
 
             <!-- start of a language group -->
             <div class="row mt-2">
@@ -431,8 +465,9 @@ a:hover {
                 </div>
             </div>
             <div id="modaltsize">
-                <button id="smaller" type="button" class="btn btn-light"><div style="line-height: 20px">-</div></button>
+                <button id="smaller" type="button" class="btn btn-light"><div>-</div></button>
                 <button id="bigger" type="button" class="btn btn-light"><div>+</div></button>
+                <button type="button" class="btn btn-light"><div>x</div></button>
             </div>
         </div>
     </body>
