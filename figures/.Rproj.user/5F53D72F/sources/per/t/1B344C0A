@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1569526153205.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2051025050",
+    "id" : "1B344C0A",
+    "lastKnownWriteTime" : 1569925192,
+    "last_content_update" : 1573723828984,
+    "path" : "~/Dropbox/CCAcknowledgement/figures/figure_making.R",
+    "project_path" : "figure_making.R",
+    "properties" : {
+        "cursorPosition" : "86,19",
+        "marks" : "<:0,0\n>:0,0\nw:0,0",
+        "scrollLine" : "24",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
