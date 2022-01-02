@@ -125,10 +125,19 @@ h3:before {
 .cca button div {
     background-image: url('imgs/fullscreen-enter.svg');
     background-size: cover;
-    transform: rotate(90deg);
     width: 25px;
     height: 25px;
 }
+.open-btn {
+    background-color: #4DBD33;
+    transform: scale(0.8) rotate(90deg);
+    transition: transform 0.3s;
+}
+.open-btn:hover {
+  background-color: #4DBD33;
+  transform: scale(1) rotate(90deg);
+}
+
 .card {
     width: 100%;
     margin-bottom: 30px;
@@ -143,6 +152,7 @@ a {
 a:hover {
     color: #CD181D;
 }
+
 
 #modalpckg {
     display: none;
@@ -226,7 +236,8 @@ a:hover {
                 <div class="col col-lg-6 col-md-8">
                     <div class="row min_caps mt-3">
                         <div class="col-12">
-                            Global temperature 1850-2018 <a href="https://showyourstripes.info/">#ShowYourStripes</a>. Source: Ed Hawkins.
+				Global temperature 1850-2019 <a href="https://showyourstripes.info/">#ShowYourStripes</a>.<br>
+				Source: Ed Hawkins (University of Reading).
                         </div>
                     </div>
                 </div>
@@ -300,9 +311,9 @@ a:hover {
                     <div class="card">
                         <div class="cca card-body">
                             <p>I/we acknowledge that we are in an existential human-induced climate crisis caused by excessive CO<sub>2</sub> emissions from a variety of human activities.</p>
-                            <p>While I/we recognize that our day-to-day transportation, energy use, materialistic consumption, animal-based diets and excessive flying impact the climate crisis, <strong>mitigating these is no substitute for policy reform</strong>.</p>
+                            <p>While I/we recognize that our day-to-day transportation, energy use, materialistic consumption, animal-based diets and excessive flying impact the climate crisis, <strong>individual mitigation alone is no substitute for policy reform</strong>.</p>
                             <p>I/we acknowledge that the path to resolving this crisis requires systemic societal and structural change supported by strong political intervention rather than individual actions, technological innovation or investment alone.</p>
-                            <p>I/we acknowledge that we have less than a decade to drastically reduce CO<sub>2</sub> emissions to prevent serious damage to our quality of life, well-being and the diversity of nature.</p>
+                            <p>I/we acknowledge that we have less than a decade to drastically reduce CO<sub>2</sub> emissions to prevent irreparable damage to our quality of life, well-being and the diversity of nature.</p>
                             <p class="acksource">— Acknowledgment provided by <a href="https://acknowledge-the-climate-crisis.org">acknowledge-the-climate-crisis.org</a></p>
                         </div>
                     </div>
@@ -465,9 +476,9 @@ a:hover {
                 </div>
             </div>
             <div id="modaltsize">
-                <button id="smaller" type="button" class="btn btn-light"><div>-</div></button>
-                <button id="bigger" type="button" class="btn btn-light"><div>+</div></button>
-                <button type="button" class="btn btn-light"><div>x</div></button>
+                <button id="smaller" type="button" class="btn btn-light"><div>t</div></button>
+                <button id="bigger" type="button" class="btn btn-light"><div>T</div></button>
+                <button type="button" class="btn btn-light"><div>X</div></button>
             </div>
         </div>
     </body>
@@ -483,7 +494,7 @@ ACC = {
     };
 
 ACC.fullscreen = function(msg) {
-    var modalpckg, modal, page;
+    let modalpckg, modal, page;
 
     // disable background scroll
     page = document.getElementsByTagName('html')[0];
@@ -512,7 +523,7 @@ ACC.fullscreen = function(msg) {
 
 ACC.onload = function() {
 
-    var ackhtml, ackbutton, i, modal, modalwin, ccalist, page, node, nodediv, txtbutsm, txtbutlg, ackmodaltext, section, heading, ackmodalfig, modalhasfig;
+    let ackhtml, ackbutton, i, modal, modalwin, ccalist, page, node, nodediv, txtbutsm, txtbutlg, ackmodaltext, section, heading, ackmodalfig, modalhasfig;
 
     // Setup CCA buttons to make them full screen
     ccalist = document.getElementsByClassName('cca');
@@ -523,7 +534,7 @@ ACC.onload = function() {
         // add the fullscreen button
         ackbutton = document.createElement("button");
         ackbutton.type = "button";
-        ackbutton.className += "btn btn-light"
+        ackbutton.className += "open-btn btn btn-light"
         nodediv = document.createElement("div");
         ackbutton.appendChild(nodediv);
         // careful with the closures
