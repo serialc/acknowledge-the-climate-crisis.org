@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
 
         <style>
@@ -79,14 +79,15 @@ h1, h2 {
 }
 .lavg h3 {
     font-weight: 300;
-    padding-left: 40px;
+    padding-left: 0px;
 }
 .lavg h3:hover {
     cursor: pointer;
 }
 h3:before {
-    position: absolute;
-    left: 5px;
+    display: inline-block;
+    position: relative;
+    left: -5px;
     height: 24px;
     width: 24px;
     line-height: 24px;
@@ -153,7 +154,6 @@ a:hover {
     color: #CD181D;
 }
 
-
 #modalpckg {
     display: none;
     position: absolute;
@@ -187,6 +187,8 @@ padding: 30px;
     padding: 5px;
     margin: 0px 6px 11px 0px;
     opacity: 0.6;
+    width: 35px;
+    height: 35px;
 }
 #modaltsize button:hover {
     opacity: 1;
@@ -258,7 +260,7 @@ padding: 30px;
 
         <div class="container">
             <div class="row justify-content-md-center">
-                <div class="col col-lg-6 col-md-8">
+                <div class="col col-lg-6 col-md-10">
                     <div class="row mt-3">
                         <div class="col-12">
                             <p>
@@ -287,9 +289,10 @@ padding: 30px;
                     </div>
 
                 </div>
-                <div class="col col-lg-6 col-md-8">
+
+                <div class="col col-lg-6 col-md-12">
                     <div class="col-12 mt-4">
-                        <h2>Acknowledgement statements</h2>
+                        <h2>Statements</h2>
                     </div>
 
                     <!-- start of a language group -->
@@ -477,9 +480,9 @@ padding: 30px;
                 </div>
             </div>
             <div id="modaltsize">
-                <button id="smaller" type="button" class="btn btn-light"><div>t</div></button>
-                <button id="bigger" type="button" class="btn btn-light"><div>T</div></button>
-                <button type="button" class="btn btn-light"><div>X</div></button>
+                <button id="smaller" type="button" class="btn btn-light">t</button>
+                <button id="bigger"  type="button" class="btn btn-light">T</button>
+                <button id="close"   type="button" class="btn btn-light">X</button>
             </div>
         </div>
     </body>
@@ -522,9 +525,67 @@ padding: 30px;
             }
         };
 
+        ACC.resetModal = function() {
+            // allow vertical scroll again
+            page = document.getElementsByTagName('html')[0];
+            page.style.overflow = 'auto';
+
+            // reset modal text size to regular
+            ACC.modtextsize = ACC.modtextnormal;
+            ACC.modfigsize = ACC.modfignormal;
+
+            // exit full screen mode
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+
+            // hide modal
+            document.getElementById('modalpckg').style.display = "none"
+        };
+
+        ACC.textModify = function(enlarge) {
+            ackmodaltext = document.getElementById("modaltext");
+
+            // sometimes our acknowledgement is a figure - check if we need to scale it as well
+            ackmodalfig = ackmodaltext.getElementsByTagName("img"); 
+            if( ackmodalfig.length > 0 ) {
+                if (enlarge) {
+                    ACC.modfigsize += ACC.modfigbump;
+                } else {
+                    ACC.modfigsize -= ACC.modfigbump;
+                }
+                if( ACC.modfigsize > 100 ) {
+                    ACC.modfigsize = 100;
+                    // do this to prevent increase in text size
+                    return;
+                }
+                ackmodalfig[0].style.width = ACC.modfigsize + '%'; 
+            }
+
+            if (enlarge) {
+                // increase text size
+                ACC.modtextsize += ACC.textbump;
+            } else {
+                // decrease text size
+                ACC.modtextsize -= ACC.textbump;
+                // don't allow making it too small
+                if(ACC.modtextsize <= 0.6) {
+                    ACC.modtextsize = 0.6;
+                }
+            }
+            // apply the size
+            ackmodaltext.style.fontSize = ACC.modtextsize + "rem";
+        };
+
         ACC.onload = function() {
 
-            let ackhtml, ackbutton, i, modal, modalwin, ccalist, page, node, nodediv, txtbutsm, txtbutlg, ackmodaltext, section, heading, ackmodalfig, modalhasfig;
+            let ackhtml, ackbutton, i, modal, modalwin, ccalist, page, node, nodediv, txtbutsm, txtbutlg,  section, heading, ackmodalfig, modalhasfig;
 
             // Setup CCA buttons to make them full screen
             ccalist = document.getElementsByClassName('cca');
@@ -547,29 +608,7 @@ padding: 30px;
 
             // Exit Modal, reset things
             modal = document.getElementById('modalpckg');
-            modal.addEventListener('click', function() {
-                // allow vertical scroll again
-                page = document.getElementsByTagName('html')[0];
-                page.style.overflow = 'auto';
-
-                // reset modal text size to regular
-                ACC.modtextsize = ACC.modtextnormal;
-                ACC.modfigsize = ACC.modfignormal;
-
-                //exit full screen mode
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-
-                // hide modal
-                this.style.display = "none"
-            }, false);
+            modal.addEventListener('click', ACC.resetModal , false);
 
             // allow clicking the acknowledgmenet text (for copying or whatever)
             modalwin = document.getElementById("modalwindow");
@@ -580,48 +619,39 @@ padding: 30px;
             // add enlarge/shrink button functionality
             txtbutlg = document.getElementById("bigger");
             txtbutsm = document.getElementById("smaller");
-            ackmodaltext = document.getElementById("modaltext");
+            txtbutclose = document.getElementById("close");
 
+            // respond to keys t/T/X/x and do actions
+            document.onkeydown = function(evt) {
+                evt = evt || window.event;
+                
+                switch(evt.key) {
+                    case 'x':
+                    case 'X':
+                        ACC.resetModal();
+                        break;
 
+                    case 't':
+                        ACC.textModify(false);
+                        break;
+
+                    case 'T':
+                        ACC.textModify(true);
+                        break;
+
+                    default:
+                        console.log(evt);
+                }
+            }
 
             txtbutlg.addEventListener('click', function(e) {
                 e.stopPropagation();
-
-                // sometimes our acknowledgement is a figure - check if we need to scale it as well
-                ackmodalfig = ackmodaltext.getElementsByTagName("img"); 
-                if( ackmodalfig.length > 0 ) {
-                    ACC.modfigsize += ACC.modfigbump;
-                    if( ACC.modfigsize > 100 ) {
-                        ACC.modfigsize = 100;
-                        // do this to prevent increase in text size
-                        return;
-                    }
-                    ackmodalfig[0].style.width = ACC.modfigsize + '%'; 
-                }
-
-                // increase text size
-                ACC.modtextsize += ACC.textbump;
-                ackmodaltext.style.fontSize = ACC.modtextsize + "rem";
-
-
+                ACC.textModify(true);
             }, false);
+
             txtbutsm.addEventListener('click', function(e) {
                 e.stopPropagation();
-
-                // sometimes our acknowledgement is a figure - check if we need to scale it as well
-                ackmodalfig = ackmodaltext.getElementsByTagName("img"); 
-                if( ackmodalfig.length > 0 ) {
-                    ACC.modfigsize -= ACC.modfigbump;
-                    ackmodalfig[0].style.width = ACC.modfigsize + '%'; 
-                }
-
-                // decrease text size
-                ACC.modtextsize -= ACC.textbump;
-                if(ACC.modtextsize <= 0.6) {
-                    ACC.modtextsize = 0.6;
-                }
-                ackmodaltext.style.fontSize = ACC.modtextsize + "rem"
-
+                ACC.textModify(false);
             }, false);
 
             // Add expanding/collapsing language sections
@@ -646,7 +676,6 @@ padding: 30px;
                     }
                 }
             }
-
 
         }();
 

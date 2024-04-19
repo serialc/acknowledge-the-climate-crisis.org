@@ -42,9 +42,9 @@ lines(sealvl$year, sealvl$csiro_mm, lwd=2, col="steelblue")
 lines(sealvl$year, sealvl$noaa_mm, lwd=2, col="black")
 axis(1, at=seq(min(sealvl$year), max(sealvl$year), by=20), labels = seq(min(sealvl$year), max(sealvl$year), by=20), lty = 0)
 axis(2, at=seq(0, 250, by=50), labels=seq(0, 250, by=50), lty=0, las=1)
-par(srt=30)
-text(1960, 140, labels="Tide gauge data", pos=4, col="steelblue2")
-text(1992, 150, labels="Satellite data", pos=4, col="black")
+par(srt=35)
+text(1962, 140, labels="Tide gauge data", pos=4, col="steelblue2")
+text(1994, 150, labels="Satellite data", pos=4, col="black")
 dev.off()
 
 # Cite as:
