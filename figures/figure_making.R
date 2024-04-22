@@ -282,3 +282,17 @@ lines(years, vsim, lwd=2, col="darkslategrey")
 axis(1, at=yearseq, labels = yearseq, lty = 0)
 axis(2, at=valseq, labels=valseq, lty=0, las=1)
 dev.off()
+
+### Second figure
+
+# Toss out the last day of leap years and transform to df
+sidf <- data.frame(sapply(sea_ice, function(x) { x[1:365] }))
+head(sidf)
+colnames(sidf) <- gsub(pattern = "X", replacement = "", colnames(sidf))
+
+plot(FALSE, xlim=c(1,365), ylim=c(min(sidf, na.rm=TRUE), max(sidf, na.rm=TRUE)), xlab="", ylab="", xaxt="n", yaxt="n" )
+for ( i in 1:ncol(sidf)) {
+  lines(1:365, sidf[,i], col='#aaaaaa')
+}
+# what's the baseline period we're using?
+lines(1:365, rowMeans(sidf, na.rm=TRUE), col="darkslategrey", lwd=2)
