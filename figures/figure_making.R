@@ -290,9 +290,47 @@ sidf <- data.frame(sapply(sea_ice, function(x) { x[1:365] }))
 head(sidf)
 colnames(sidf) <- gsub(pattern = "X", replacement = "", colnames(sidf))
 
-plot(FALSE, xlim=c(1,365), ylim=c(min(sidf, na.rm=TRUE), max(sidf, na.rm=TRUE)), xlab="", ylab="", xaxt="n", yaxt="n" )
-for ( i in 1:ncol(sidf)) {
-  lines(1:365, sidf[,i], col='#aaaaaa')
-}
-# what's the baseline period we're using?
-lines(1:365, rowMeans(sidf, na.rm=TRUE), col="darkslategrey", lwd=2)
+# Get the mean and std dev (1st and 2nd) for the reference period
+# 1981 - 2010 is the reference period
+sidf_ref <- sidf[, colnames(sidf) %in% 1981:2010]
+sidf_ref_means <- rowMeans(sidf_ref, na.rm = TRUE)
+sidf_ref_sd <-       apply(sidf_ref, 1, sd, na.rm = TRUE)
+
+# get data for the last decade
+latest_year <-  as.integer(max(colnames(sidf)))
+sidf_ld <- sidf[, colnames(sidf) %in% (latest_year - 9):latest_year]
+sidf_ld_means <- rowMeans(sidf_ld, na.rm = TRUE)
+sidf_ld_sd <- apply(sidf_ld, 1, sd, na.rm = TRUE)
+
+# now plot it
+svg(filename='outputs/asie.svg', width=9, height=5)
+par(mar=c(4,4.4,2,1))
+plot(1:365, sidf_ref_means, type='n', xlab='', xaxt='n', ylab=expression("Arctic sea ice extent (km"^2*" millions)"),
+     ylim=c(min(sidf, na.rm=TRUE), max(sidf, na.rm=TRUE)), main="Arctic Sea Ice Extent")
+
+# individual lines
+for ( i in 1:ncol(sidf)) { lines(1:365, sidf[,i], col='black', lwd=0.2) }
+
+polygon(c(1:365, 365:1), c(sidf_ref_means + sidf_ref_sd*2,  rev(sidf_ref_means - sidf_ref_sd*2)), col=adjustcolor("steelblue2", alpha.f = 0.5), lty=0)
+polygon(c(1:365, 365:1), c(sidf_ref_means + sidf_ref_sd,  rev(sidf_ref_means - sidf_ref_sd)), col=adjustcolor("steelblue", alpha.f = 0.5), lty=0)
+
+polygon(c(1:365, 365:1), c(sidf_ld_means+ sidf_ld_sd*2,  rev(sidf_ld_means - sidf_ld_sd*2)), lwd=2, col=adjustcolor("palevioletred1", alpha.f = 0.5), lty=0)
+polygon(c(1:365, 365:1), c(sidf_ld_means+ sidf_ld_sd,  rev(sidf_ld_means - sidf_ld_sd)), lwd=2, col=adjustcolor("palevioletred3", alpha.f = 0.5), lty=0)
+# hatching, cool but no
+#polygon(c(1:365, 365:1), c(sidf_ld_means+ sidf_ld_sd*2,  rev(sidf_ld_means - sidf_ld_sd*2)), lwd=2, col="palevioletred1", lty=1, angle = 0, density=30)
+#polygon(c(1:365, 365:1), c(sidf_ld_means+ sidf_ld_sd,  rev(sidf_ld_means - sidf_ld_sd)), lwd=2, col="palevioletred3", lty=1, angle=90, density=30)
+
+# trend lines
+lines(1:365, sidf_ref_means, col="darkslategrey", lwd=2)
+lines(1:365, sidf_ld_means, col="darkred", lwd=2)
+
+axis(1,at = seq(1, 366, length.out=12), labels = month.name)
+legend('bottomleft',
+       legend = c("Yearly data", "Reference mean (1981-2010)", paste0("Last decade mean (", latest_year-9,'-',latest_year,")"), "First std. dev. (Ref.)", "Sec. std. dev. (Ref.)",  "First std. dev. (Last decade)", "Sec. std. dev. (Last decade)"),
+       title = "Ice extent", title.adj = 0.05, title.cex = 1.2,
+       lwd=c(0.2, 2, 2, NA, NA, NA, NA), col=c("black", "darkslategrey", "darkred", NA, NA, NA, NA),
+       border = NA,  seg.len=0.8, merge=TRUE,
+       fill=c(NA, NA, NA, adjustcolor("steelblue", alpha.f = 0.5), adjustcolor("steelblue2", alpha.f = 0.5), adjustcolor("palevioletred3", alpha.f = 0.5), adjustcolor("palevioletred1", alpha.f = 0.5)))
+
+dev.off()
+       
